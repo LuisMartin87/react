@@ -1,0 +1,1063 @@
+
+<div id="auctionBidViewContainer" class="animated fadeIn">
+    <div id="auctionNoPermissions" style="display:none">You don't have permissions to see work on this RFQ.</div>
+    <div id="auctionNotStartedYet" style="display:none">The RFQ has not started yet and you can't submit quotes on it. <span id="auctionSchedule"></span></div>
+    <div id="auctionAlreadyFinished" class="visibilityNone">The RFQ has already finished and no more quotes can be submitted.</div>
+    <div id="auctionStartedContainer" style="display:none">
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="ibox-content animated fadeIn">
+                <div class="col-md-9" style="margin-top: 15px;">
+                    <div class="row">
+                        <div id="auctionTypeIcon" class="col-md-1" style="float: none;display: table-cell;vertical-align: middle;">
+                        </div>
+                        <div id="rfqCommodityIcon" class="col-md-1" style="float: none;display: table-cell;vertical-align: middle;">
+                        </div>
+                        <div id="RFQTitle" class="col-md-10" style="float: none;display: table-cell;vertical-align: middle;">
+                        </div>
+                    </div>
+                </div>
+                <div id="RFQStatus" class="col-md-2" style="float: none;display: table-cell;vertical-align: middle;">
+                    <h5 class="m-b-md">RFQ Status</h5>
+                    <h3 class="text-navy"></h3>
+                    <small id="auctionRemainingTimeColumn"><p name='remainingTimeMessage'>&nbsp;</p></small>
+
+
+                </div>
+
+                <div id="RFQActions" class="col-md-3" style="float: none;display: table-cell;vertical-align: middle;">
+                    <a name='endAuctionBtn' data-toggle='tooltip' data-placement='left' title='Finish' type='button' data-loading-text='<i class="fa fa-spinner fa-spin"></i> Ending...' class='btn btn-success' style="display:none"><span class='fa fa-stop'></span></a>
+                    <a class="btn btn-primary visibilityNone" data-toggle='tooltip' title="Change RFQ Schedule" name="ExtendRFQ"><i class="fa fa-hourglass-half"></i></a>
+                    <div id="remainingTimeMessage" style="display:none">
+                        <span name='remainingTimePieChart' class='pie'></span>
+                    </div>
+                </div>
+                <div class="col-md-1" style="float: none;display: table-cell;vertical-align: middle;">
+                    <!--<a name="startAuctionBtn" data-toggle="tooltip" data-placement="left" title="" type="button" data-loading-text="<i class=&quot;fa fa-spinner fa-spin&quot;></i> Starting..." class="btn btn-success" style="display:none" data-original-title="Start"><span class="glyphicon glyphicon-play-circle"></span></a>-->
+
+                    <div id="exportRow" style="margin-right:-30px;margin-bottom:10px;display:none;">
+                        <a name='excelBtn' type='button' data-toggle='tooltip' data-placement='left' title='Export to Excel' data-loading-text="<i class='fa fa-spinner fa-spin'></i> Generating..." class='btn btn-default' style="float:right; margin-right:20px;"><span class='fa fa-file-excel-o'></span></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" style="display:flex;flex-wrap:wrap">
+            <div class="col-md-6 firstColumn">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card p-0">
+                            <div class="p-1" style="padding-top:0px">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content" style="border:0; padding-top:10px;">
+                                        <div class="row">
+                                            <div class="tabs-container fontSize1280" id="tabWizard">
+                                                <ul class="nav nav-tabs" id="mainTab">
+
+                                                    <li class="nav-item"><a href="#transactionDetails" data-bs-toggle="tab" class="nav-link">RFQ Details</a></li>
+                                                    <li class="nav-item"><a href="#contractInfo" data-bs-toggle="tab" class="nav-link active">Contract Information</a></li>
+                                                    <li class="nav-item"><a href="#meters" data-bs-toggle="tab" class="nav-link">Meters</a></li>
+                                                    <li class="nav-item"><a href="#contactInfo" data-bs-toggle="tab" class="nav-link">Contact Information</a></li>
+                                                    <li class="nav-item"><a href="#customerInfo" data-bs-toggle="tab" class="nav-link">Customer Information</a></li>
+                                                    <li class="nav-item"><a href="#documents" data-bs-toggle="tab" class="nav-link">Documents</a></li>
+                                                    <li class="nav-item"><a href="#suppliers" data-bs-toggle="tab" class="nav-link">Suppliers</a></li>
+                                                    <li class="nav-item"><a href="#quoteSubmission" data-bs-toggle="tab" class="nav-link">Quote Submission</a></li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane animated fadeIn table-responsive" id="transactionDetails">
+                                                        <table id="retailRFQDetailsTable" class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th colspan="3">Description</th>
+                                                                    <th>Benchmark Price</th>
+                                                                    <th>Reserve Price</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="auctionDescriptionColumn" colspan="3"></td>
+                                                                    <td id="auctionBenchmarkPriceColumn"></td>
+                                                                    <td id="auctionReservePriceColumn"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Access</th>
+                                                                    <th>Chat</th>
+                                                                    <th>Comments</th>
+                                                                    <th id="startingPriceHeader">Starting Price</th>
+                                                                    <th>Target Price</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="auctionAccessTypeColumn"></td>
+                                                                    <td id="auctionChatSettingsColumn"></td>
+                                                                    <td id="auctionPriceCommentsColumn"></td>
+                                                                    <td id="auctionStartingPriceColumn"></td>
+                                                                    <td id="auctionTargetPriceColumn"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table id="wholesaleRFQDetailsTable" class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline" style="display:none">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th colspan="4">Description</th>
+                                                                    <th>Target Price</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="auctionDescriptionColumn" colspan="4"></td>
+                                                                    <td id="wholesaleTargetPriceColumn"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Access</th>
+                                                                    <th>Chat</th>
+                                                                    <th>Comments</th>
+                                                                    <th id="startingPriceHeader" colspan="2">Starting Price</th>
+                                                                    <th id="wholesaleMinimumQuantityColumn">Minimum Quantity</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="auctionAccessTypeColumn"></td>
+                                                                    <td id="auctionChatSettingsColumn"></td>
+                                                                    <td id="auctionPriceCommentsColumn"></td>
+                                                                    <td id="auctionStartingPriceColumn"></td>
+                                                                    <td id="wholesaleMinimumQuantityColumn"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="tab-pane active animated fadeIn" id="contractInfo">
+                                                        <table id="retailContractInfoTable" class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>Start Date</th>
+                                                                    <th>Commodity Type</th>
+                                                                    <th>Country</th>
+                                                                    <th>State</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="contractStartDateColumn"></td>
+                                                                    <td id="contractCommodityTypeColumn"></td>
+                                                                    <td id="contractCountryColumn"></td>
+                                                                    <td id="contractStateColumn"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="suppR">Minimum Bandwidth</th>
+                                                                    <th name="deliveryPointColumn">Delivery Point</th>
+                                                                    <th colspan="2">Utilities</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="contractMinimumBandwidthColumn" class="suppR"></td>
+                                                                    <td name="deliveryPointColumn" id="contractDeliveryPointColumn"></td>
+                                                                    <td colspan="2" id="contractUtilitiesColumn"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th colspan="2" name="contractProcurementAmountColumn">Procurement Amount</th>
+                                                                    <th id="brokerFeeColumn" class="suppR">Broker Fee</th>
+                                                                    <th name="numberOfMetersColumn">Number of Accounts</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2" name="contractProcurementAmountColumn" id="contractProcurementAmountColumn"></td>
+                                                                    <td name="brokerFeeColumn" id="contractBrokerFeeColumn" class="suppR"></td>
+                                                                    <td name="numberOfMetersColumn" id="contractNumberOfMetersColumn"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="suppR">Product Type Description</th>
+                                                                    <th name="contractRenewableContentRequirementColumn" class="suppR">Renewable Content Requirement</th>
+                                                                    <th name="gasPriceAssumptionColumn" colspan="2">Gas Price Assumption</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="contractProductTypeDescriptionColumn" class="suppR"></td>
+                                                                    <td name="contractRenewableContentRequirementColumn" id="contractRenewableContentRequirementColumn" class="suppR"></td>
+                                                                    <td name="gasPriceAssumptionColumn" id="contractGasPriceAssumptionColumn" colspan="2"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Payment Term</th>
+                                                                    <th colspan="3">Bill Type</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="contractPaymentTermColumn"></td>
+                                                                    <td id="contractBillTypeColumn" colspan="3"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table id="wholesaleContractInfoTable" class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline" style="display:none">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>Start Date</th>
+                                                                    <th>Commodity Type</th>
+                                                                    <th>Country</th>
+                                                                    <th>State</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="contractStartDateColumn"></td>
+                                                                    <td id="contractCommodityTypeColumn"></td>
+                                                                    <td id="contractCountryColumn"></td>
+                                                                    <td id="contractStateColumn"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th name="deliveryPointColumn">Delivery Point</th>
+                                                                    <th colspan="2" name="totalQuantitySought">Total Quantity Sought</th>
+                                                                    <th colspan="2" name="contractProcurementAmountColumn" style="display:none">Annual Procurement Amount</th>
+                                                                    <th name="gasPriceAssumptionColumn" style="display:none" colspan="2">Gas Price Assumption</th>
+                                                                    <th name="brokerFeeColumn" class="suppR">Broker Fee</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td name="deliveryPointColumn" id="contractDeliveryPointColumn"></td>
+                                                                    <td colspan="2" name="totalQuantitySought" id="contractTotalQuantitySoughtColumn"></td>
+                                                                    <td colspan="2" name="contractProcurementAmountColumn" id="contractProcurementAmountColumn" style="display:none"></td>
+                                                                    <td name="gasPriceAssumptionColumn" style="display:none" id="contractGasPriceAssumptionColumn" colspan="2"></td>
+                                                                    <td name="brokerFeeColumn" id="contractBrokerFeeColumn" class="suppR"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th name="paymentTermColumn" style="display:none">Payment Term</th>
+                                                                    <th name="paymentTermColumn" colspan="3" style="display:none">Bill Type</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td name="paymentTermColumn" id="contractPaymentTermColumn" style="display:none"></td>
+                                                                    <td name="paymentTermColumn" id="contractBillTypeColumn" colspan="3" style="display:none"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th colspan="4" class="suppR">Product Type Description</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="4" id="contractProductTypeDescriptionColumn" class="suppR"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="tab-pane animated fadeIn" id="meters">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card p-0">
+                                                                    <div class="card-header bg-light">
+                                                                        Meters
+                                                                    </div>
+                                                                    <div class="p-1">
+                                                                        <div class="table-responsive">
+                                                                            <table id="metersGrid" data-order='[[0,"desc"],[2,"desc"]]' class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Utility</th>
+                                                                                        <th>Account Number</th>
+                                                                                        <th>Meter Number</th>
+                                                                                        <th>Address</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane animated fadeIn" id="contactInfo">
+                                                        <!--<table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+        <tbody>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Job Title</th>
+            </tr>
+            <tr>
+                <td id="contactFirstNameColumn"></td>
+                <td id="contactLastNameColumn"></td>
+                <td id="contactJobTitleColumn"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <th>Phone</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td id="contactEmailColumn"></td>
+                <td id="contactPhoneColumn"></td>
+                <td></td>
+            </tr>
+            <tr id="InviteCustomerRow" style="display:none;">
+                <td id="inviteCustomerColumn"></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>-->
+                                                    </div>
+                                                    <div class="tab-pane animated fadeIn" id="customerInfo">
+                                                        <table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Country</th>
+                                                                    <th>State</th>
+                                                                    <th>City</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="customerNameColumn"></td>
+                                                                    <td id="customerCountryColumn"></td>
+                                                                    <td id="customerStateColumn"></td>
+                                                                    <td id="customerCityColumn"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Address</th>
+                                                                    <th>Postal Code</th>
+                                                                    <th>Tax ID</th>
+                                                                    <th>DUNS</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="customerAddressColumn"></td>
+                                                                    <td id="customerPostalCodeColumn"></td>
+                                                                    <td id="customerTaxIdColumn"></td>
+                                                                    <td id="customerDUNSColumn"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Legal Business Name</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td id="customerAccountLegalNameColumn"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="tab-pane animated fadeIn" id="documents">
+                                                        <div class="row">
+                                                            <div class="col-md-12" style="padding-right:10px;">
+                                                                <div class="card p-0">
+                                                                    <div class="card-header bg-light">
+                                                                        Select a document to add to the RFQ
+                                                                    </div>
+                                                                    <div class="p-1">
+                                                                        <div id="fileUploadContainer" class="form-group">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane animated fadeIn" id="suppliers">
+                                                        <div class="panel-group" id="accordion">
+                                                            <div class="card p-0">
+                                                                <div class="card-header bg-light">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" href="#collapseRemoveSuppliers">
+                                                                            Current Suppliers
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseRemoveSuppliers" class="panel-collapse collapse">
+                                                                    <div id="removeSuppliers" class="p-1">
+                                                                        <div class="form-group">
+                                                                            <div class="table-responsive">
+                                                                                <table data-order='[1,"asc"]' id="invitationStatuses" class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Supplier Name</th>
+                                                                                            <th>First Name</th>
+                                                                                            <th>Last Name</th>
+                                                                                            <th>E-Mail</th>
+                                                                                            <th>Status</th>
+                                                                                            <th></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card p-0">
+                                                                <div class="card-header bg-light">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" href="#collapseAddSuppliers">
+                                                                            Add Suppliers
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseAddSuppliers" class="panel-collapse collapse">
+                                                                    <div id="addSuppliers" class="p-1">
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-2 col-md-offset-5">
+                                                                            <button type="button" class="btn btn-success" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding..." name="addSuppliersBtn" disabled>Add Suppliers</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card p-0">
+                                                                <div class="card-header bg-light">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" href="#collapseMessageSuppliers" id="PanelMessageSupplier">
+                                                                            Message Suppliers
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseMessageSuppliers" class="panel-collapse collapse">
+                                                                    <div id="messageSuppliers" class="p-1">
+                                                                        <div class="form-group">
+                                                                            <textarea id="bulkSupplierMessage" style="width:100%"></textarea>
+                                                                        </div>
+                                                                        <div class="form-group form-check">
+                                                                            <input type="checkbox" class="form-check-input" id="bulkSupplierMessageCopySender" checked>
+                                                                            <label class="form-check-label" for="bulkSupplierMessageCopySender">Send me a copy of this message</label>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div>
+                                                                                <div class="btn-group" role="group" aria-label="Message Suppliers toggle">
+                                                                                    <div class="radio radio-info radio-inline">
+                                                                                        <input type="radio" id="selectAllMessages" name="message-suppliers" checked="checked" value="all">
+                                                                                        <label for="SelectAll">All</label>
+                                                                                    </div>
+                                                                                    <div class="radio radio-info radio-inline">
+                                                                                        <input type="radio" id="OnlySelected" name="message-suppliers" value="selected">
+                                                                                        <label for="OnlySelected">Selected only </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="messageInvitationSuppliers">
+                                                                                    <div class="form-group">
+                                                                                        <div class="table-responsive">
+                                                                                            <table data-order='[1,"asc"]' id="invitationMessageStatuses" class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>Supplier</th>
+                                                                                                        <th>First Name</th>
+                                                                                                        <th>Last Name</th>
+                                                                                                        <th></th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-md-offset-5">
+                                                                                <button type="button" class="btn btn-success" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding..." name="submitSupplierMessageBtn" disabled>Send</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane animated fadeIn" id="quoteSubmission">
+                                                        <div class="card p-0 row">
+                                                            <div class="card-header bg-light">
+                                                                Quote Submission
+                                                            </div>
+                                                            <div class="p-1">
+                                                                <div class="ibox float-e-margins">
+                                                                    <div class="ibox-title" id="conditionalDiv">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12" id="biddingColumnProductTypeSelector">
+                                                                                Pricing for
+                                                                                <select id="currentProductTypeDDL" required></select>
+                                                                                <div id="biddingColumnLoadingPanel" style="display:none" class="pull-right">
+                                                                                    {{{LoadingSpinnerPlaceholder}}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 visibilityNone" id="supplierCompanySelector">
+                                                                                <div class="form-group">
+                                                                                    <div class="">
+                                                                                        <label class="mb-1">Quotes from</label>
+                                                                                        <select id="invitedSupplierCompaniesDDL"></select>
+                                                                                        <div id="biddingColumnLoadingPanel" style="display:none" class="pull-right">
+                                                                                            {{{LoadingSpinnerPlaceholder}}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="tab-content">
+                                                                        <table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <th>Product Type</th>
+                                                                                    <th id="startingPriceHeader">Starting Price</th>
+                                                                                    <th name="brokerFeeColumn">Broker Fee</th>
+                                                                                    <th>Minimum Bandwidth</th>
+                                                                                    <th>Renewable Content Requirement</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td id="contractProductType"></td>
+                                                                                    <td id="auctionStartingPriceColumn"></td>
+                                                                                    <td name="brokerFeeColumn" id="contractBrokerFeeColumn"></td>
+                                                                                    <td id="contractMinimumBandwidthColumn"></td>
+                                                                                    <td id="contractRenewableContentRequirementColumn"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th colspan="5">Product Type Description</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td colspan="5" id="contractProductTypeDescriptionColumn"></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="ibox-content">
+                                                                        <div class="sk-spinner sk-spinner-double-bounce">
+                                                                            <div class="sk-double-bounce1"></div>
+                                                                            <div class="sk-double-bounce2"></div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-8">
+                                                                                <div class="row" style="margin-bottom:10px;">
+                                                                                    <div id="startingPriceFieldsGroup" class="col-md-12 visibilityNone">
+                                                                                        <label>Starting Price&nbsp;&nbsp;</label>
+                                                                                        <span style="display:block" id="startingPriceValue"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row" style="margin-bottom:10px;">
+                                                                                    <div id="minimumQuantityFieldsGroup" class="col-md-4 visibilityNone">
+                                                                                        <label>Minimum Quantity&nbsp;&nbsp;</label>
+                                                                                        <span style="display:block" id="minimumQuantityValue"></span>
+                                                                                    </div>
+                                                                                    <div id="minimumQuantityIncrementFieldsGroup" class="col-md-4 visibilityNone">
+                                                                                        <label>Minimum Quantity Increment&nbsp;&nbsp;</label>
+                                                                                        <span style="display:block" id="minimumQuantityIncrementValue"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="supplierWAPDisplayColumn" class="col-md-4" style="display:none"></div>
+                                                                            <div id="supplierTargetPriceDisplayColumn" class="col-md-4" style="display:none"></div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th style="text-align:center" class="col-md-1">Term</th>
+                                                                                            <th id="bidTypeTableHeader" style="text-align:center" class="col-md-4"></th>
+                                                                                            <th class="col-md-4">Amount</th>
+                                                                                            <th id="commentsIconHeader" class="col-md-1"></th>
+                                                                                            <th class="col-md-2" colspan="2"></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody id="tableBodySubmission"></tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4 col-md-offset-5">
+                                                                                <button id="bidAllBtn" type="button" class="btn btn-success" style="display:none" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting..." name="bidAllBtn">Submit All Quotes</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div id="bidRowTemplateDiv"></div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: -20px;">
+                                            <div class="tabs-container" id="tabWizard">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active">
+                                                        <table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                                            <tr>
+                                                                <td colspan="4" style="text-align:center">
+                                                                    <button class="btn btn-default" id="showGuidelinesBtn" data-toggle="modal" data-target="#guidelinesModal"><span class="glyphicon glyphicon-list-alt"></span> Show Guidelines</button>
+                                                                    <button class="btn btn-default" id="showQABtn" data-toggle="modal" data-target="#qAndAModal"><span class="glyphicon glyphicon-question-sign"></span> Show Q&A</button>
+
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="extendAuctionRow" class="row collapse">
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="auctionEndPicker">New End Time</label>
+                                                            <div class='input-group date' id='auctionEndPicker'>
+                                                                <input type='text' class="form-control" required />
+                                                                <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <div>
+                                                        <button type="button" class="btn btn-success" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting..." name="extendBtn">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="widgetsRow" class="row" style="display:none">
+                                            <div class="col-sm-12 col-md-6" id="savingsVsBenchmark">
+                                            </div>
+                                            <div class="col-sm-12 col-md-6" id="savingsVsReserve">
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                            </div>
+                                            <div class="col-sm-12 col-md-6" id="savingsVsTarget">
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="supplierCreditStatusesRow" style="display: none">
+                    <div class="col-md-12">
+                        <div class="card p-0">
+                            <div class="panel card-header bg-light collapsible clickable">
+                                Supplier Credit Statuses
+                            </div>
+                            <div class="p-1">
+                                <div class="table-responsive">
+                                    <table data-order='[1,"desc"]' id="supplierCreditStatusesGrid" class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                        <thead>
+                                            <tr>
+                                                <th>Supplier</th>
+                                                <th>Status</th>
+                                                <th>Deposit</th>
+                                                <th>Comments</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="biddingColumn" style="display:none" class="col-md-6">
+                <div id="currentSupplierCreditStatusRow" class="card p-0 row">
+                    <div class="panel card-header bg-light">
+                        Credit Status
+                    </div>
+                    <div class="p-1">
+                        <div class="row">
+                            <form id="updateSupplierCreditStatusForm" class="p-0">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="creditStatusesDDL">Credit Status</label>
+                                        <select id="creditStatusesDDL" class="form-control" required></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" id="depositAmountColumn">
+                                    <div class="form-group">
+                                        <label for="depositAmount">Deposit Amount</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input type="number" class="form-control" id="depositAmount" step="0.01" data-parsley-price-value disabled required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="otherStatus">Comments</label>
+                                        <input type="text" class="form-control" id="creditStatusComments" placeholder="Comments">
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>&nbsp;</label>
+                                    <button type="button" class="btn btn-primary form-control disabled" name="updateSupplierCreditStatusBtn" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Updating..." disabled>Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-0 row">
+                    <div class="card-header bg-light">
+                        Quote Submission
+                    </div>
+                    <div class="p-1">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title" id="conditionalDiv">
+                                <div class="row">
+                                    <div class="col-md-12" id="biddingColumnProductTypeSelector">
+                                        Pricing for
+                                        <select id="currentProductTypeDDL" required></select>
+                                        <div id="biddingColumnLoadingPanel" style="display:none" class="pull-right">
+                                            {{{LoadingSpinnerPlaceholder}}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 visibilityNone" id="supplierCompanySelector">
+
+                                        <div class="form-group">
+                                            <div class="">
+                                                <label class="mb-1 mt-1">Quotes from</label>
+                                                <select id="invitedSupplierCompaniesDDL"></select>
+                                                <div id="biddingColumnLoadingPanel" style="display:none" class="pull-right">
+                                                    {{{LoadingSpinnerPlaceholder}}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-content">
+                                <table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                    <tbody>
+                                        <tr>
+                                            <th>Product Type</th>
+                                            <th id="startingPriceHeader">Starting Price</th>
+                                            <th name="brokerFeeColumn">Broker Fee</th>
+                                            <th>Minimum Bandwidth</th>
+                                            <th>Renewable Content Requirement</th>
+                                        </tr>
+                                        <tr>
+                                            <td id="contractProductType"></td>
+                                            <td id="auctionStartingPriceColumn"></td>
+                                            <td name="brokerFeeColumn" id="contractBrokerFeeColumn"></td>
+                                            <td id="contractMinimumBandwidthColumn"></td>
+                                            <td id="contractRenewableContentRequirementColumn"></td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5">Product Type Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" id="contractProductTypeDescriptionColumn"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="sk-spinner sk-spinner-double-bounce">
+                                    <div class="sk-double-bounce1"></div>
+                                    <div class="sk-double-bounce2"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row" style="margin-bottom:10px;">
+                                            <div id="startingPriceFieldsGroup" class="col-md-12 visibilityNone">
+                                                <label>Starting Price&nbsp;&nbsp;</label>
+                                                <span style="display:block" id="startingPriceValue"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-bottom:10px;">
+                                            <div id="minimumQuantityFieldsGroup" class="col-md-4 visibilityNone">
+                                                <label>Minimum Quantity&nbsp;&nbsp;</label>
+                                                <span style="display:block" id="minimumQuantityValue"></span>
+                                            </div>
+                                            <div id="minimumQuantityIncrementFieldsGroup" class="col-md-4 visibilityNone">
+                                                <label>Minimum Quantity Increment&nbsp;&nbsp;</label>
+                                                <span style="display:block" id="minimumQuantityIncrementValue"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="supplierWAPDisplayColumn" class="col-md-4"></div>
+                                    <div id="supplierTargetPriceDisplayColumn" class="col-md-4" style="display:none"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align:center" class="col-md-1">Term</th>
+                                                    <th id="bidTypeTableHeader" style="text-align:center" class="col-md-4"></th>
+                                                    <th class="col-md-4">Amount</th>
+                                                    <th id="commentsIconHeader" class="col-md-1"></th>
+                                                    <th class="col-md-2" colspan="2"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tableBodySubmission"></tbody>
+                                            <tfoot>
+                                                <tr class="borderlessCells">
+                                                    <td colspan="4" style="padding-top: 30px !important;">
+                                                        <div class="bg-primary" style="width:30px;height:20px; float:left">
+                                                        </div>
+                                                        <p style="margin-left:10px;float:left">
+                                                            If your quote is highlighted, you are winning the term
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-md-offset-5">
+                                        <button id="bidAllBtn" type="button" class="btn btn-success" style="display:none" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting..." name="bidAllBtn">Submit All Quotes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bidsGraph" style="display:none" class="col-md-6 bidsGraph">
+                <div id="quoteSummaryPanel" style="display:none">
+                    <div class="row" style="display:flex;margin-top: -9px;">
+                        <div class="col-md-6 firstColumn bidsGraph" style="display: table-cell;vertical-align: middle;">
+                            <div class="row">
+                                <div class="col-md-6" style="padding-right:10px;">
+                                    <div class="widget navy-bg style1 text-center">
+                                        <h2 id="totalBidsReceived" class="m-xs"></h2>
+                                        <h5 class="no-margins">
+                                            Quotes
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding-left:0;">
+                                    <div class="widget navy-bg style1 text-center">
+                                        <h2 id="totalUniqueBidders" class="m-xs"></h2>
+                                        <h5 class="no-margins">
+                                            Suppliers
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="lowPriceWidget" class="widget style1 navy-bg text-center align-middle" style="margin:0;padding-bottom:18px;">
+                                        <h1 id="currentLowPrice" class="m-xs"></h1>
+                                        <h5 class="no-margins">
+                                            Low Quote
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 bidsGraph">
+                            <div class="row">
+                                <div id="lowSupplierWidget" class="widget navy-bg style1 text-center" style="display: table;width: 100%;height: 165px;">
+                                    <div style="vertical-align: middle;display: table-cell;">
+                                        <h3 id="currentLowSupplier" class="m-xs" style="margin-bottom:5px;"></h3>
+                                        <div class="m-b-sm">
+                                            <div id="lowSupplierLogo" class="text-center">
+                                            </div>
+                                        </div>
+                                        <h5>Low Supplier</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card p-0">
+                        <div class="p-1" style="padding-top:0px">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content" style="border:0; padding-top:10px">
+                                    <div id="generalProductTypeSelector" style="margin-bottom:10px;">
+                                        Pricing for
+                                        <select id="currentProductTypeDDL" data-is-bids-graph="true"></select>
+                                    </div>
+                                    <div id="bidsGraphLoadingPanel" style="display:none" class="pull-right">
+                                        {{{LoadingSpinnerPlaceholder}}}
+                                    </div>
+                                    <div class="row">
+                                        <div class="tabs-container" id="graphTabsWizard">
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item"><a href="#pricesDistributionGraphTab"  data-bs-toggle="tab" class="nav-link active">Quote Distribution</a></li>
+                                                <li class="nav-item"><a href="#lowestPricesGraphTab"  data-bs-toggle="tab" class="nav-link">Lowest Quote</a></li>
+                                                <li class="nav-item"><a href="#bidStackGraphTab"  data-bs-toggle="tab" class="nav-link">Quote Stack</a></li>
+                                                <li class="nav-item"><a href="#WAPGraphTab"  data-bs-toggle="tab" class="nav-link">WAP Over Time</a></li>
+                                            </ul>
+                                            <br />
+                                            <div class="btn-group graphTermsToggleButtons" role="group" aria-label="Graph terms toggle">
+                                            </div>
+                                            <div class="tab-content">
+                                                <br />
+                                                <div class="tab-pane active ibox-content animated fadeIn" id="pricesDistributionGraphTab">
+                                                    <div id="pricesDistributionGraphContainer"></div>
+                                                </div>
+                                                <div class="tab-pane ibox-content animated fadeIn" id="lowestPricesGraphTab">
+                                                    <div id="lowestPricesGraphContainer"></div>
+                                                </div>
+                                                <div class="tab-pane ibox-content animated fadeIn" id="bidStackGraphTab">
+                                                    <div id="bidStackGraphContainer"></div>
+                                                </div>
+                                                <div class="tab-pane ibox-content animated fadeIn" id="WAPGraphTab">
+                                                    <div id="WAPGraphContainer"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card p-0 lastPanel row">
+                    <div class="card-header bg-light">
+                        Quote Listing
+                        <div id="bidsHistoryGridLoadingPanel" style="display:none" class="pull-right">
+                            {{{LoadingSpinnerPlaceholder}}}
+                        </div>
+                    </div>
+                    <div class="p-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="bidsGridContainer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{{GuidelinesModalTemplatePlaceholder}}}
+{{{QandAModalTemplatePlaceholder}}}
+{{{DeclineBidModalTemplatePlaceholder}}}
+<script type="text/template" id="bidRowTemplate">
+    <tr name="priceRow" data-term="{termNumber}">
+        <td class="col-md-1" style="text-align:center"><span name="termNumber">{termNumber}</span></td>
+        <td class="col-md-4" style="text-align:center" id="currentPriceWinnerColumn"><span name="currentPriceWinner"></span></td>
+        <td class="col-md-4" name="bidControlsColumn">
+            <button type="button" class="btn btn-default" style="display:none" name="showWAPDetails" data-toggle="collapse" data-target="#WAPDetailsCollapse-{termNumber}"><span class="mdi mdi-pencil"></span></button>
+            <form data-term="{termNumber}" name="submitBidForm">
+                {{{RFQBidControlsTemplatePlaceholder}}}
+            </form>
+        </td>
+        <td class="col-md-1" style="text-align:center">
+            <button type="button" class="btn btn-default" name="showComments"><span class="fa fa-comments"></span></button>
+        </td>
+        <td class="col-md-1" style="text-align:center">
+            <button type="button" class="btn btn-success" data-term="{termNumber}" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Submitting..." name="bidBtn">Submit</button>
+        </td>
+        <td class="col-md-1" style="text-align:center">
+            <button class="btn btn-danger" name="declineBidBtn" data-toggle="modal" data-target="#declineBidFormContainer" title="Decline to Bid" data-loading-text="<i class=&quot;fa fa-spinner fa-spin&quot;></i> Declining..."><span class="glyphicon  glyphicon-remove"></span></button>
+        </td>
+    </tr>
+    <tr name="commentsRow" style="display:none">
+        <td colspan="6">
+            <textarea id="bidCommentArea" style="height:100px;resize:none" class="form-control" maxlength="250"
+                      placeholder="Comments for quote go here. They can't be longer than 250 characters." data-parsley-maxlength="250"></textarea>
+        </td>
+    </tr>
+    <tr name="WAPDetailsRow">
+        <td colspan="6">
+            <div class="collapse" id="WAPDetailsCollapse-{termNumber}">
+                <div class="card card-block">
+                    <table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline">
+                        <tr>
+                            <th>Rate Code&nbsp;</th>
+                            <th>Term&nbsp;</th>
+                            <th>Product&nbsp;</th>
+                            <th>Year 1&nbsp;</th>
+                            <th>Year 2&nbsp;</th>
+                            <th>Year 3&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <td>R &amp; R-EV</td>
+                            <td>Summer</td>
+                            <td>Energy</td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                        </tr>
+                        <tr>
+                            <td>R &amp; R-EV </td>
+                            <td>NonSum</td>
+                            <td>Energy</td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                        </tr>
+                        <tr>
+                            <td>AE</td>
+                            <td>Summer</td>
+                            <td>Energy</td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                        </tr>
+                        <tr>
+                            <td>AE</td>
+                            <td>NonSum</td>
+                            <td>Energy</td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                        </tr>
+                        <tr>
+                            <td>RTM-EV</td>
+                            <td>Summer</td>
+                            <td>On pk ener</td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                        </tr>
+                        <tr>
+                            <td>RTM-EV</td>
+                            <td>Summer</td>
+                            <td>Off pk ener</td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                        </tr>
+                        <tr>
+                            <td>RTM-EV</td>
+                            <td>NonSum</td>
+                            <td>On pk ener</td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                        </tr>
+                        <tr>
+                            <td>RTM-EV</td>
+                            <td>NonSum</td>
+                            <td>Off pk ener</td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="WAPInput"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+<script type="text/html" id="savingsBarTemplate">
+    <div>
+        <span>{term}</span>
+        <small class="pull-right">{savings}</small>
+    </div>
+    <div class="progress progress-small">
+        <div style="width:{percentage}" class="progress-bar"></div>
+    </div>
+</script>
+<script type="text/html">
+    <table class="table hide-control table-datagrid table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline small m-t-md">
+        <tbody></tbody>
+    </table>
+</script>
+<script type="text/html" id="reserveSavingsRowTemplate">
+    <tr>
+        <td class="no-borders">
+            <i class="fa fa-circle text-navy"></i>
+        </td>
+        <td class="no-borders">
+            {term}
+        </td>
+    </tr>
+</script>
+<script type="text/html" id="genericWidgetTemplate">
+    <div class="widget navy-bg p-sm text-center">
+        <h3 class="m-xs">{widgetContent}</h3>
+        <h5 class="font-bold no-margins">
+            {widgetDescription}
+        </h5>
+    </div>
+</script>
